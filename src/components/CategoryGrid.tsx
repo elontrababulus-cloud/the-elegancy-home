@@ -5,37 +5,37 @@ const categories = [
   { 
     name: 'Sofas', 
     slug: 'sofas', 
-    image: '/images/catalog/sofa-albionte.jpg',
+    image: '/images/categories/Sofas.webp',
     count: '4 Items'
   },
   { 
     name: 'Beds', 
     slug: 'beds', 
-    image: '/images/catalog/bed-pradoso.jpg',
+    image: '/images/categories/Beds and Matresses.webp',
     count: '2 Items'
   },
   { 
     name: 'Lighting', 
     slug: 'lighting', 
-    image: '/images/catalog/light-bentley.jpg',
+    image: '/images/categories/image.png',
     count: '2 Items'
   },
   { 
     name: 'Tables', 
     slug: 'tables', 
-    image: '/images/catalog/table-lavetia.jpg',
+    image: '/images/categories/Tables and Chairs.webp',
     count: '2 Items'
   },
   { 
     name: 'Decor & Accessories', 
     slug: 'decor-accessories', 
-    image: 'https://cdn.globus.pictures/fr/private/750/540/725cd9d9622fe6e60b6f7b1ec24c45f7bcb0377384553e7759be1dff58c499f2.jpeg',
+    image: '/images/categories/Decors and Accessories.webp',
     count: '10 Items'
   },
   { 
     name: 'Cabinets & Storage', 
     slug: 'cabinets-storage', 
-    image: 'https://cdn.globus.pictures/fr/private/852/557/e42b17f229a009a539ac25226887f93e639e7c8352556083408f15ddf18bf144.png',
+    image: '/images/categories/Cabinets and Storage.webp',
     count: '10 Items'
   }
 ];
