@@ -129,7 +129,7 @@ export default async function ProductDetailsPage({ params }: ProductPageProps) {
             {productsData.filter(p => p.id !== product.id).slice(0, 4).map(p => (
                <Link key={p.id} href={`/product/${p.id}`} className="group">
                   <div className="aspect-square bg-luxury-gray overflow-hidden mb-4">
-                    <img src={p.main_image_url} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src={p.main_image_url} alt={p.name} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <h4 className="text-sm font-serif text-luxury-charcoal">{p.name}</h4>
                   <p className="text-[10px] text-gray-400 uppercase tracking-ultra">{p.brand}</p>

@@ -19,7 +19,7 @@ const ProductGallery = ({ mainImage, galleryImages = [], productName }: ProductG
         <img 
           src={activeImage} 
           alt={productName} 
-          className="w-full h-full object-cover transition-opacity duration-500"
+          className="w-full h-full object-contain transition-opacity duration-500"
         />
       </div>
 
@@ -37,7 +37,7 @@ const ProductGallery = ({ mainImage, galleryImages = [], productName }: ProductG
               <img 
                 src={img} 
                 alt={`${productName} thumbnail ${index + 1}`} 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </button>
           ))}
