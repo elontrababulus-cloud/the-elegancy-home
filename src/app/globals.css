@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --color-luxury-charcoal: #171717;
+  --color-luxury-gold: #C5A059;
+  --color-luxury-zinc: #27272a;
+  --color-luxury-cream: #FDFCFB;
+  --color-luxury-gray: #FAFAFA;
+  
+  --font-serif: "Playfair Display", serif;
+  --letter-spacing-ultra: 0.2em;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Inter, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.luxury-link {
+  position: relative;
+}
+
+.luxury-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.luxury-link:hover::after {
+  width: 100%;
+}
