@@ -18,10 +18,11 @@ function parseCSV(content) {
     if (matches) {
       const values = matches.map(v => v.replace(/^"|"$/g, '').replace(/""/g, '"'));
       data.push({
-        name: values[0],
-        description: values[1],
-        price: values[2],
-        image: values[3]
+        id: values[0],
+        name: values[1],
+        description: values[2],
+        price: values[3],
+        image: values[4]
       });
     }
   }
@@ -44,12 +45,8 @@ async function importProducts() {
   }
 
   const newProducts = products.map((p, index) => {
-    // Extract ID from image URL if possible: ...?id=178452&...
-    const idMatch = p.image.match(/id=(\d+)/);
-    const id = idMatch ? idMatch[1] : `HD-${Date.now()}-${index}`;
-
     return {
-      id: id,
+      id: p.id,
       name: p.name,
       category: "Decor & Accessories",
       description: p.description,
@@ -59,14 +56,21 @@ async function importProducts() {
     };
   });
 
-  // Filter out duplicates based on ID
+  // Overwrite existing products or add new ones
   const existingIds = new Set(catalog.map(item => item.id));
-  const uniqueNewProducts = newProducts.filter(p => !existingIds.has(p.id));
+  const catalogMap = new Map(catalog.map(item => [item.id, item]));
+  
+  for (const newP of newProducts) {
+    catalogMap.set(newP.id, newP);
+  }
 
-  const updatedCatalog = [...catalog, ...uniqueNewProducts];
+  const updatedCatalog = Array.from(catalogMap.values());
   fs.writeFileSync(catalogPath, JSON.stringify(updatedCatalog, null, 2), 'utf-8');
 
-  console.log(`Added ${uniqueNewProducts.length} new products to catalog.json (Skipped ${newProducts.length - uniqueNewProducts.length} duplicates).`);
+  const addedCount = newProducts.filter(p => !existingIds.has(p.id)).length;
+  const updatedCount = newProducts.length - addedCount;
+
+  console.log(`Import complete: Added ${addedCount} new products, updated ${updatedCount} existing products in catalog.json.`);
 }
 
 importProducts().catch(console.error);

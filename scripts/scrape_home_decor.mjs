@@ -31,9 +31,23 @@ async function fetchProduct(id) {
       price = `$${priceFromText}`;
     }
 
-    const image = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1] || '';
+    // Improved Image extraction: Find all CDN images and filter for product ones
+    const allImgMatches = [...html.matchAll(/(?:src|data-src|data-lazy-src|content)="(https?:\/\/[^"]*(?:cdn|img|media|upload|static)[^"]*\.(?:jpg|jpeg|webp|png)(?:\?[^"]*)?[^"]*)"/gi)];
+    const allImgSrcs = [...new Set(allImgMatches.map(m => m[1]))];
+    
+    const productImages = allImgSrcs.filter(url => {
+      const lower = url.toLowerCase();
+      return !lower.includes('logo') 
+          && !lower.includes('icon') 
+          && !lower.includes('avatar')
+          && (lower.includes('product') || lower.includes('item') || lower.includes('catalog') || lower.includes('upload') || lower.includes('cdn') || url.includes(id));
+    });
 
-    return { name, description, price, image };
+    // Fallback order: First filtered product image, then og:image
+    const ogImage = html.match(/<meta property="og:image" content="([^"]+)"/)?.[1] || '';
+    const image = productImages[0] || ogImage;
+
+    return { id, name, description, price, image };
   } catch (err) {
     console.error(`Error fetching ${id}: ${err.message}`);
     return null;
@@ -60,8 +74,9 @@ async function scrape() {
 
   // Convert to CSV
   const csvRows = [
-    ['Item Name', 'Description', 'Price', 'Image'],
+    ['ID', 'Item Name', 'Description', 'Price', 'Image'],
     ...products.map(p => [
+      `"${p.id}"`,
       `"${p.name.replace(/"/g, '""')}"`,
       `"${p.description.replace(/"/g, '""').replace(/\n/g, ' ')}"`,
       `"${p.price}"`,
