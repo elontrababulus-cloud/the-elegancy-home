@@ -8,7 +8,7 @@ const HeroSection = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center transition-transform duration-[10s] scale-110 hover:scale-100"
         style={{ 
-          backgroundImage: "url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2074&auto=format&fit=crop')",
+          backgroundImage: "url('/images/hero-banner.webp')",
         }}
       >
         <div className="absolute inset-0 bg-black/30"></div>
