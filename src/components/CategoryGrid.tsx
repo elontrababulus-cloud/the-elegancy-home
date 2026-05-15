@@ -30,7 +30,7 @@ const categories = [
     name: 'Decor & Accessories', 
     slug: 'decor-accessories', 
     image: '/images/categories/Decors and Accessories.webp',
-    count: '10 Items'
+    count: '30 Items'
   },
   { 
     name: 'Cabinets & Storage', 
